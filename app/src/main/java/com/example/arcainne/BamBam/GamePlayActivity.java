@@ -21,24 +21,26 @@ public class GamePlayActivity extends ActionBarActivity {
     // View Vars
     private TextView tvInstructions;
     private TextView tvScore;
+    private TextView tvTask;
 
     /************ INITALIZATION of GLOBAL VARIABLES FOR WATCH INTERACTIONS *******/
     //This needs to be used for communication
     //This is a list of commands from watch to client
     private static final int
             KEY_GESTURE = 0,
-            GESTURE_1 = 1,
-            GESTURE_2 = 2,
-            GESTURE_3 = 3;
-
-    //This is a list of commands from client to watch
-    private static final int
-            KEY_SEND_ROLE= 4,       //Key, use a string as data
-            KEY_SEND_PHASE=5,       //Key, use an enum below as data
-            KEY_SCORE_UPDATE= 6,    //Key, use an int as data
-            WAITING_ROOM_SCREEN= 7,
-            GAME_PLAY_SCREEN=8,
-            FINAL_SCREEN=9;
+            JAZZ_HANDS = 1,  // Jazz Hands
+            POKE = 2,  //Poke
+            RAISE_THE_ROOF = 3,  //Raise the Roof
+            RUNNING= 4, //running
+            DOWN=5, //Down Button
+            UP= 6, //Up button
+            SELECT= 7,
+            KEY_SEND_ROLE= 8,
+            KEY_SEND_PHASE=9,
+            KEY_SCORE_UPDATE= 10,
+            WAITING_ROOM_SCREEN= 11,
+            GAME_PLAY_SCREEN=12,
+            FINAL_SCREEN=13;
 
     //This is the connection to our particular phone app (determined by UUID given in cloudpebble)
     private UUID Pebble_UUID = UUID.fromString("7c02f3fb-ff81-4893-aa1c-f741b2e7c3ff");
@@ -56,7 +58,7 @@ public class GamePlayActivity extends ActionBarActivity {
     // Create array of player roles
     private String roles[]= {
             "GnomesInRome",
-            "BamBamNotBatman",
+            "Batman",
             "SeanAndSamson",
             "RobABaby",
             "Sojalicious",
@@ -71,13 +73,13 @@ public class GamePlayActivity extends ActionBarActivity {
             "Jazz hands",
             "Poke",
             "Raise the roof",
+            "Run",
+            "Bottom button",
             "Top button",
-            "Middle button",
-            "Bottom button"
+            "Middle button"
     };
 
     // Active instructions
-    //Instruction activeInstructions[];
     private List activeInstructions;
 
     /********** END VARS FOR GAMEPLAY **********/
@@ -90,9 +92,11 @@ public class GamePlayActivity extends ActionBarActivity {
         // Get TextView instructions object from activity_game_play.xml
         tvInstructions = (TextView) findViewById(R.id.instruction_id);
         tvInstructions.setText("No instruction yet!");
+        tvTask = (TextView) findViewById(R.id.DEBUG_success_gesture_id);
 
         //Place in OnCreate Code to start up Pebble
         startWatchApp();
+
 
         // Initialize vars
         playerCount = 0;
@@ -113,6 +117,7 @@ public class GamePlayActivity extends ActionBarActivity {
         // Set score text on screen
         tvScore = (TextView)findViewById(R.id.score_id);
         tvScore.setText("SCORE: " + score);
+        sendRoundStartToWatch(chooseRandomRole());
     }
 
     /*
@@ -173,27 +178,32 @@ public class GamePlayActivity extends ActionBarActivity {
                     tvInstructions.setText(instrTask + " " + instrPerformer);
 
                     switch(button) {
-                        case GESTURE_1:
+                        case JAZZ_HANDS:
                             //Insert Instructions here upon receiving a gesture 1 (please empty)
                             //tvInstructions.setText("Gesture 1 Done!, sending a round start");
                             String role= chooseRandomRole();
-                            sendRoundStartToWatch(role);
+                            tvTask.setText(tasks[JAZZ_HANDS - 1]);
+                            //sendRoundStartToWatch(role);
                             break;
-                        case GESTURE_2:
+                        case RAISE_THE_ROOF:
                             //Insert Instructions here upon receiving a gesture 2 (please empty)
                             //tvInstructions.setText("Gesture 2 Done! sending a phase");
+                            tvTask.setText(tasks[RAISE_THE_ROOF - 1]);
                             if (score>=100) {
                                 sendPhaseToWatch(FINAL_SCREEN, 100);
                             } else {
                                 sendPhaseToWatch(WAITING_ROOM_SCREEN, score);
                             }
                             break;
-                        case GESTURE_3:
+                        case RUNNING:
                             //Insert Instructions for gesture 3 (please empty)
                             //tvInstructions.setText("Gesture 3 Done!, increasing score");
+                            tvTask.setText(tasks[RUNNING - 1]);
                             score+=10;
                             sendScoreToWatch(score);
                             break;
+                        case POKE:
+
                     }
 
                     // Update score on screen
@@ -224,7 +234,6 @@ public class GamePlayActivity extends ActionBarActivity {
                     }
                 }
             }
-
         });
 
         // Update score on screen
