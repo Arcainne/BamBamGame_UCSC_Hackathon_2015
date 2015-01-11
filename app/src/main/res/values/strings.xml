@@ -8,7 +8,7 @@
     <string name="button_join">Join</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_game_play">GamePlayActivity</string>
-    <string name="score_text">SCORE: 69</string>
+    <string name="score_text">SCORE</string>
     <string name="instruction_text">CURRENT INSTR: High five Batman!</string>
     <string name="DEBUG_success_gesture">PREV INSTR: Check ass of Wobbledoo</string>
     <string name="title_activity_host">HostActivity</string>
