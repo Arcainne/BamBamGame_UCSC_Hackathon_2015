@@ -9,7 +9,7 @@ import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
-    // ass test
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
