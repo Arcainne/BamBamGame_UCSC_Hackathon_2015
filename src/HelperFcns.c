@@ -14,7 +14,7 @@ void send_int(uint8_t key, uint8_t cmd)
 }
 
 //private variables
-static int lastGesture=GESTURE_1;
+static int lastGesture=POKE;
 
 
 
