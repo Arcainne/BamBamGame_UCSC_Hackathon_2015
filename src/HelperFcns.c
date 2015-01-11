@@ -25,6 +25,7 @@ void sendGesture(int gestureKey) {
   else {
     lastGesture= gestureKey;
     send_int(KEY_GESTURE, gestureKey);
+    vibes_long_pulse();
   }
   
 }
