@@ -217,9 +217,12 @@ public class GamePlayActivity extends ActionBarActivity {
             @Override
             public void receiveNack(Context context, int wrongedId) {
                 Log.i(getLocalClassName(), "Received nack for transaction " + wrongedId);
-                PebbleDictionary message= lastMessage[wrongedId];
-                PebbleKit.sendDataToPebbleWithTransactionId(getApplicationContext(), Pebble_UUID, message, wrongedId);
-                //sendDataToWatch(message);
+                if (wrongedId >= 0 && wrongedId <lastMessage.length) {
+                    PebbleDictionary message= lastMessage[wrongedId];
+                    if(message!=null) {
+                        PebbleKit.sendDataToPebbleWithTransactionId(getApplicationContext(), Pebble_UUID, message, wrongedId);
+                    }
+                }
             }
 
         });
