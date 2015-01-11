@@ -1,16 +1,19 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_LOCATION": 4,
+        "KEY_TEMPERATURE": 5
+    },
     "capabilities": [
         ""
     ],
-    "companyName": "petricottontail@gmail.com",
-    "longName": "PeterGesture",
+    "companyName": "sojamorgens@gmail.com",
+    "longName": "Message2Pebble",
     "projectType": "native",
     "resources": {
         "media": []
     },
-    "shortName": "PeterGesture",
-    "uuid": "53dd68af-add0-4251-910d-153be427fb19",
+    "shortName": "Message2Pebble",
+    "uuid": "7c02f3fb-ff81-4893-aa1c-f741b2e7c3ff",
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
