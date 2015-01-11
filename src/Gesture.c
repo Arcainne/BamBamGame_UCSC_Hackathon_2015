@@ -97,14 +97,26 @@ static void accel_handler(AccelData *data, uint32_t num_samples){
   accel_x[0]=data[0].x;
   accel_y[0]=data[0].y;
   accel_z[0]=data[0].z;
-  if (accel_x[0] >= abs(750)) {
-  text_layer_set_text(gesture_layer, "Last Gesture: Gesture 1");
+  if (accel_x[0] >= abs(900)) {
+  text_layer_set_text(gesture_layer, "Last Gesture: X peak");
     count = 20;
-  }else if(accel_y[0] >= abs(750)){
-  text_layer_set_text(gesture_layer, "Last Gesture: Gesture 2");
+  }else if(accel_y[0] >= abs(900)){
+  text_layer_set_text(gesture_layer, "Last Gesture: Y peak");
     count = 20;
-  }else if(accel_z[0] >= abs(750)){
-  text_layer_set_text(gesture_layer, "Last Gesture: Gesture 3");
+  }else if(accel_z[0] >= abs(900)){
+  text_layer_set_text(gesture_layer, "Last Gesture: Z peak");
+    count = 20;
+  }else if((accel_x[0] >= abs(750)) && (accel_z[0] >= abs(750))){
+  text_layer_set_text(gesture_layer, "Last Gesture: X & Z peak");
+    count = 20;
+  }else if(accel_x[0] >= abs(750) && accel_y[0] >= abs(750)){
+  text_layer_set_text(gesture_layer, "Last Gesture: X & Y peak");
+    count = 20;
+  }else if(accel_y[0] >= abs(750) && accel_z[0] >= abs(750)){
+  text_layer_set_text(gesture_layer, "Last Gesture: Y & Z peak");
+    count = 20;
+  }else if(accel_x[0] >= abs(600) && accel_y[0] >= abs(600) && accel_z[0] >= abs(600)){
+  text_layer_set_text(gesture_layer, "Last Gesture: TRIPPLEEE peak");
     count = 20;
   }else if(count<=0){
     text_layer_set_text(gesture_layer, "Last Gesture: None");
