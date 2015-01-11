@@ -2,15 +2,19 @@
 #include "pebble.h"
 enum {
     KEY_GESTURE = 0,
-    GESTURE_1 = 1,  //Up button and Jazz Hands
-    GESTURE_2 = 2,  //Select button and High Five
-    GESTURE_3 = 3,  //Down Button and raise the roof and running
-    KEY_SEND_ROLE= 4,
-    KEY_SEND_PHASE=5,
-    KEY_SCORE_UPDATE= 6,
-    WAITING_ROOM_SCREEN= 7,
-    GAME_PLAY_SCREEN=8,
-    FINAL_SCREEN=9  
+    JAZZ_HANDS = 1,  // Jazz Hands
+    POKE = 2,  //Poke
+    RAISE_THE_ROOF = 3,  //Raise the Roof 
+    RUNNING= 4, //running
+    DOWN=5, //Down Button
+    UP= 6, //Up button
+    SELECT= 7,
+    KEY_SEND_ROLE= 8,
+    KEY_SEND_PHASE=9,
+    KEY_SCORE_UPDATE= 10,
+    WAITING_ROOM_SCREEN= 11,
+    GAME_PLAY_SCREEN=12,
+    FINAL_SCREEN=13,
 };
 
 

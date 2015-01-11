@@ -32,7 +32,7 @@ static int raise_the_roof[2];
 static int running[2];
 
 static int threshold_z_jh= 700;
-static int threshold_x_rr= 400;
+static int threshold_x_rr= 500;
 static int threshold_5= 500;
 static int threshold_y=400;
 
@@ -43,19 +43,19 @@ static int gestures_to_send[4];
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(gesture_layer, "Last Gesture: SELECT");
   count=20; //resets duration gesture message is to appear
-  sendGesture(GESTURE_2);
+  sendGesture(DOWN);
 }
  
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(gesture_layer, "Last Gesture: UP");
   count=20; //resets duration gesture message is to appear;
-  sendGesture(GESTURE_1);
+  sendGesture(UP);
 }
  
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(gesture_layer, "Last Gesture: DOWN");
   count=20; //resets duration gesture message is to appear;
-  sendGesture(GESTURE_3);
+  sendGesture(SELECT);
   
 }
 
@@ -160,23 +160,28 @@ void checkRunning(int yChange) {
     }
 }
 
-
+//Send Running Gestures (4)
 void sendRunning() {
    text_layer_set_text(gesture_layer, "Last Gesture: Running!");
-   sendGesture(GESTURE_3);
+   sendGesture(RUNNING);
 }
 
+//Send Raise the Roof Gesture (3) 
 void sendRoof() {
    text_layer_set_text(gesture_layer, "Last Gesture: Raise the Roof!");
-   sendGesture(GESTURE_3);
+   sendGesture(RAISE_THE_ROOF);
 }
+
+//Send JazzHands (2)
 void sendJazzHands() {
   text_layer_set_text(gesture_layer, "Last Gesture: JazzHands!");
-  sendGesture(GESTURE_1);
+  sendGesture(JAZZ_HANDS);
 }
+
+//send Poke (1)
 void sendPoke() {
   text_layer_set_text(gesture_layer, "Last Gesture: Poke!");
-  sendGesture(GESTURE_2);
+  sendGesture(POKE);
 }
 //ACCELEROMETRY:
 static void accel_handler(AccelData *data, uint32_t num_samples){
