@@ -161,26 +161,32 @@ void checkRunning(int yChange) {
 }
 
 //Send Running Gestures (4)
-void sendRunning() {
+void sendRunning(bool updateText) {
    text_layer_set_text(gesture_layer, "Last Gesture: Running!");
    sendGesture(RUNNING);
 }
 
 //Send Raise the Roof Gesture (3) 
-void sendRoof() {
-   text_layer_set_text(gesture_layer, "Last Gesture: Raise the Roof!");
+void sendRoof(bool updateText) {
+  if (updateText) {
+     text_layer_set_text(gesture_layer, "Last Gesture: Raise the Roof!");
+  }
    sendGesture(RAISE_THE_ROOF);
 }
 
 //Send JazzHands (2)
-void sendJazzHands() {
-  text_layer_set_text(gesture_layer, "Last Gesture: JazzHands!");
+void sendJazzHands(bool updateText) {
+  if(updateText) {
+    text_layer_set_text(gesture_layer, "Last Gesture: JazzHands!");
+  }
   sendGesture(JAZZ_HANDS);
 }
 
 //send Poke (1)
-void sendPoke() {
-  text_layer_set_text(gesture_layer, "Last Gesture: Poke!");
+void sendPoke(bool updateText) {
+  if(updateText) {
+    text_layer_set_text(gesture_layer, "Last Gesture: Poke!");
+  }
   sendGesture(POKE);
 }
 //ACCELEROMETRY:
@@ -257,10 +263,11 @@ static void accel_handler(AccelData *data, uint32_t num_samples){
   jazz_count--;
   
   if (index %6 ==0) {
-    if (gestures_to_send[3]) sendRunning();
-    else if (gestures_to_send[2]) sendRoof();
-    else if (gestures_to_send[0]) sendJazzHands();
-    else if (gestures_to_send[1]) sendPoke();
+    bool updateText= (index %12 ==0);
+    if (gestures_to_send[3]) sendRunning(updateText);
+    else if (gestures_to_send[2]) sendRoof(updateText);
+    else if (gestures_to_send[0]) sendJazzHands(updateText);
+    else if (gestures_to_send[1]) sendPoke(updateText);
     gestures_to_send[3]= gestures_to_send[2]= gestures_to_send[0]= gestures_to_send[1]= 0;
   }
   
@@ -284,11 +291,20 @@ void process_tuple(Tuple *t)
     case KEY_SEND_PHASE:
       //Location received
       if (value==WAITING_ROOM_SCREEN) {
-        strcpy(string_value, "Waiting Room");
+        strcpy(string_value, "INIT");
+        vibes_double_pulse();
+        text_layer_set_text(role_layer, "");
+        text_layer_set_text(gesture_layer, "Last Gesture: N/A");
+        text_layer_set_text(score_layer, "");
+        vibes_double_pulse();
+        
       } else if (value == GAME_PLAY_SCREEN) {
         strcpy(string_value,"Play Screen");
+        vibes_double_pulse();
       } else if (value== FINAL_SCREEN) {
         strcpy(string_value,"Its the end!");
+        text_layer_set_text(gesture_layer, "Last Gesture: N/A");
+        vibes_long_pulse();
       }
       snprintf(phase_buffer, sizeof("a long phasename"), "%s", string_value);
       text_layer_set_text(phase_layer, (char*) &phase_buffer);
@@ -301,6 +317,13 @@ void process_tuple(Tuple *t)
     case KEY_SCORE_UPDATE:
       snprintf(score_buffer, sizeof("Score: XXX"), "Score: %d", value);
       text_layer_set_text(score_layer, (char*) &score_buffer);
+      if ((value < 0) ||  (value >= 100)) {
+        if (value>=100) strcpy(string_value,"You Win!");
+        else strcpy(string_value, "You lose!");
+        snprintf(role_buffer, sizeof("a really long role name"), "%s", string_value);
+        text_layer_set_text(role_layer, (char*) &role_buffer);
+      }
+        
       break;
     break;
       
