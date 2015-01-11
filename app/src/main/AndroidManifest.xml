@@ -19,7 +19,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.arcainne.BamBam.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,15 +29,18 @@
         </activity>
         <activity
             android:name="com.example.arcainne.BamBam.GamePlayActivity"
-            android:label="@string/title_activity_game_play" >
+            android:label="@string/title_activity_game_play"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.arcainne.BamBam.HostActivity"
-            android:label="@string/title_activity_host" >
+            android:label="@string/title_activity_host"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.arcainne.BamBam.EndActivity"
-            android:label="@string/title_activity_end" >
+            android:label="@string/title_activity_end"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

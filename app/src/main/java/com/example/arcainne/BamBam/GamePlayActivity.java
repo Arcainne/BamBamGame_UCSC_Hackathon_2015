@@ -56,7 +56,6 @@ public class GamePlayActivity extends ActionBarActivity {
         tvInstructions.setText("No instruction yet!");
 
         //Place in OnCreate Code to start up Pebble
-        stopWatchApp();
         startWatchApp();
     }
 
@@ -165,6 +164,9 @@ public class GamePlayActivity extends ActionBarActivity {
     //Function to start up Watch (ideally when app started up)
     public void startWatchApp() {
         PebbleKit.startAppOnPebble(getApplicationContext(), Pebble_UUID);
+        PebbleDictionary data = new PebbleDictionary();
+        data.addInt32(KEY_SEND_PHASE, WAITING_ROOM_SCREEN);
+        sendDataToWatch(data);
     }
 
     //Function to stop Watch (ideally when app is stopped)
@@ -182,22 +184,21 @@ public class GamePlayActivity extends ActionBarActivity {
         data.addInt32(KEY_SEND_PHASE, GAME_PLAY_SCREEN);
         data.addString(KEY_SEND_ROLE, role);
         sendDataToWatch(data);
-
     }
 
     public void sendPhaseToWatch(int phase, int score) {
         PebbleDictionary data = new PebbleDictionary();
         data.addInt32(KEY_SEND_PHASE, phase);
         data.addInt32(KEY_SCORE_UPDATE, score);
-        PebbleKit.sendDataToPebble(getApplicationContext(), Pebble_UUID, data);
+        sendDataToWatch(data);
     }
 
     public void sendScoreToWatch(int score) {
         PebbleDictionary data = new PebbleDictionary();
         data.addInt32(KEY_SCORE_UPDATE, score);
-        PebbleKit.sendDataToPebble(getApplicationContext(), Pebble_UUID, data);
-
+        sendDataToWatch(data);
     }
+
     private void sendDataToWatch(PebbleDictionary data) {
         lastMessage[transactionID]=data;
         PebbleKit.sendDataToPebbleWithTransactionId(getApplicationContext(), Pebble_UUID, data, transactionID);
