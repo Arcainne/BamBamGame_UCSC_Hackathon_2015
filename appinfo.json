@@ -1,0 +1,19 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "petricottontail@gmail.com",
+    "longName": "PeterGesture",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "shortName": "PeterGesture",
+    "uuid": "53dd68af-add0-4251-910d-153be427fb19",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
